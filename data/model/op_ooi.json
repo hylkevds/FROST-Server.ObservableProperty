@@ -1,11 +1,14 @@
 {
-    "entityTypes": {
-        "ObjectOfInterest": {
+    "entityTypes": [
+        {
+            "name": "ObjectOfInterest",
             "plural": "ObjectsOfInterest",
             "table": "OP_OOI",
-            "entityProperties": {
-                "@iot.id": {
+            "entityProperties": [
+                {
+                    "name": "@iot.id",
                     "aliases": ["id"],
+                    "type": "Id",
                     "handlers": [
                         {
                             "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperId",
@@ -13,7 +16,8 @@
                         }
                     ]
                 },
-                "name": {
+                {
+                    "name": "name",
                     "type": "Edm.String",
                     "required": true,
                     "handlers": [
@@ -23,7 +27,8 @@
                         }
                     ]
                 },
-                "description": {
+                {
+                    "name": "description",
                     "type": "Edm.String",
                     "handlers": [
                         {
@@ -32,7 +37,8 @@
                         }
                     ]
                 },
-                "metadata": {
+                {
+                    "name": "metadata",
                     "type": "Edm.String",
                     "handlers": [
                         {
@@ -41,7 +47,8 @@
                         }
                     ]
                 },
-                "link": {
+                {
+                    "name": "link",
                     "type": "Edm.String",
                     "handlers": [
                         {
@@ -50,8 +57,9 @@
                         }
                     ]
                 },
-                "properties": {
-                    "type": "Sta.Object",
+                {
+                    "name": "properties",
+                    "type": "Object",
                     "hasCustomProperties": true,
                     "handlers": [
                         {
@@ -60,9 +68,10 @@
                         }
                     ]
                 }
-            },
-            "navigationProperties": {
-                "Constraints": {
+            ],
+            "navigationProperties": [
+                {
+                    "name": "Constraints",
                     "entitySet": true,
                     "entityType": "Constraint",
                     "inverse": {
@@ -81,7 +90,8 @@
                         }
                     ]
                 },
-                "ObservedProperties": {
+                {
+                    "name": "ObservedProperties",
                     "entitySet": true,
                     "entityType": "ObservedProperty",
                     "inverse": {
@@ -97,7 +107,7 @@
                         }
                     ]
                 }
-            }
+            ]
         }
-    }
+    ]
 }
