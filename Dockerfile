@@ -1,4 +1,4 @@
-From fraunhoferiosb/frost-server-http:develop-2.0-2.0.0-SNAPSHOT
+From fraunhoferiosb/frost-server-http:2.0.0
 
 COPY data ${CATALINA_HOME}/webapps/FROST-Server/WEB-INF/data
 
@@ -9,3 +9,4 @@ ENV plugins_modelLoader_liquibasePath=../data/liquibase
 ENV plugins_modelLoader_liquibaseFiles=tables.xml
 
 USER tomcat
+
