@@ -2,6 +2,8 @@
 
 A FROST-Server plugin implementing a prototype ObservableProperties model
 
+![Observable Properties Data Model](Datamodel-ObservableProperies.drawio.png)
+
 ## Settings
 
 * **plugins.observableproperty.enable:**  
