@@ -1,5 +1,6 @@
 {
     "conformance": [
+        "https://github.com/hylkevds/FROST-Server.ObservableProperty",
         "https://padlet.com/barbaramagagna/sogprgszse1bgd24"
     ],
     "entityTypes": [
