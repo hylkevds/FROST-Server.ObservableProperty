@@ -22,47 +22,47 @@
     -->
     <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="id-Matrix" value="LONG" />
             <not>
                 <tableExists tableName="OP_MATRIX" />
             </not>
         </preConditions>
         <createTable tableName="OP_MATRIX">
-            <column name="NAME" type="TEXT"/>
-            <column name="DESCRIPTION" type="TEXT"/>
-            <column name="METADATA" type="TEXT"/>
-            <column name="LINK" type="TEXT"/>
-            <column name="PROPERTIES" type="JSONB"/>
+            <column name="ID" type="${idTypeLong}" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY" />
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <preConditions onFail="MARK_RAN">
-            <changeLogPropertyDefined property="id-Matrix" value="LONG" />
-            <not>
-                <columnExists columnName="ID" tableName="OP_MATRIX" />
-            </not>
-        </preConditions>
-        <addColumn tableName="OP_MATRIX">
-            <column name="ID" type="${idTypeLong}" autoIncrement="true" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-Matrix" value="STRING" />
                 <changeLogPropertyDefined property="id-Matrix" value="UUID" />
             </or>
             <not>
-                <columnExists columnName="ID" tableName="OP_MATRIX" />
+                <tableExists tableName="OP_MATRIX" />
+            </not>
+        </preConditions>
+        <createTable tableName="OP_MATRIX">
+            <column name="ID" type="${idType-Matrix}" defaultValueComputed="${defaultValueComputed-Matrix}">
+                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="NAME" tableName="OP_MATRIX" />
             </not>
         </preConditions>
         <addColumn tableName="OP_MATRIX">
-            <column name="ID" type="${idType-Matrix}" defaultValueComputed="${defaultValueComputed-Matrix}" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY"/>
-            </column>
+            <column name="NAME" type="TEXT"/>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="METADATA" type="TEXT"/>
+            <column name="LINK" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
         </addColumn>
     </changeSet>
 

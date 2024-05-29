@@ -22,47 +22,47 @@
     -->
     <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="id-ContextObject" value="LONG" />
             <not>
                 <tableExists tableName="OP_CONTEXT_OBJECT" />
             </not>
         </preConditions>
         <createTable tableName="OP_CONTEXT_OBJECT">
-            <column name="NAME" type="TEXT"/>
-            <column name="DESCRIPTION" type="TEXT"/>
-            <column name="METADATA" type="TEXT"/>
-            <column name="LINK" type="TEXT"/>
-            <column name="PROPERTIES" type="JSONB"/>
+            <column name="ID" type="${idTypeLong}" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY" />
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <preConditions onFail="MARK_RAN">
-            <changeLogPropertyDefined property="id-ContextObject" value="LONG" />
-            <not>
-                <columnExists columnName="ID" tableName="OP_CONTEXT_OBJECT" />
-            </not>
-        </preConditions>
-        <addColumn tableName="OP_CONTEXT_OBJECT">
-            <column name="ID" type="${idTypeLong}" autoIncrement="true" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-ContextObject" value="STRING" />
                 <changeLogPropertyDefined property="id-ContextObject" value="UUID" />
             </or>
             <not>
-                <columnExists columnName="ID" tableName="OP_CONTEXT_OBJECT" />
+                <tableExists tableName="OP_CONTEXT_OBJECT" />
+            </not>
+        </preConditions>
+        <createTable tableName="OP_CONTEXT_OBJECT">
+            <column name="ID" type="${idType-ContextObject}" defaultValueComputed="${defaultValueComputed-ContextObject}">
+                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="NAME" tableName="OP_CONTEXT_OBJECT" />
             </not>
         </preConditions>
         <addColumn tableName="OP_CONTEXT_OBJECT">
-            <column name="ID" type="${idType-ContextObject}" defaultValueComputed="${defaultValueComputed-ContextObject}" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY"/>
-            </column>
+            <column name="NAME" type="TEXT"/>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="METADATA" type="TEXT"/>
+            <column name="LINK" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
         </addColumn>
     </changeSet>
 

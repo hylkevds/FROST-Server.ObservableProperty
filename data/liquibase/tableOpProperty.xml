@@ -22,48 +22,48 @@
     -->
     <changeSet author="scf" id="2021-05-20-ObsProps_Property-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="id-Property" value="LONG" />
             <not>
                 <tableExists tableName="OP_PROPERTY" />
             </not>
         </preConditions>
-
         <createTable tableName="OP_PROPERTY">
-            <column name="NAME" type="TEXT"/>
-            <column name="DESCRIPTION" type="TEXT"/>
-            <column name="METADATA" type="TEXT"/>
-            <column name="LINK" type="TEXT"/>
-            <column name="PROPERTIES" type="JSONB"/>
+            <column name="ID" type="${idTypeLong}" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="OP_PROPERTY_PKEY" />
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet author="scf" id="2021-05-20-ObsProps_Property-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <preConditions onFail="MARK_RAN">
-            <changeLogPropertyDefined property="id-Property" value="LONG" />
-            <not>
-                <columnExists columnName="ID" tableName="OP_PROPERTY" />
-            </not>
-        </preConditions>
-        <addColumn tableName="OP_PROPERTY">
-            <column name="ID" type="${idTypeLong}" autoIncrement="true" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_PROPERTY_PKEY" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="scf" id="2021-05-20-ObsProps_Property-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-Property" value="STRING" />
                 <changeLogPropertyDefined property="id-Property" value="UUID" />
             </or>
             <not>
-                <columnExists columnName="ID" tableName="OP_PROPERTY" />
+                <tableExists tableName="OP_PROPERTY" />
             </not>
         </preConditions>
-        <addColumn tableName="OP_PROPERTY">
-            <column name="ID" type="${idType-Property}" defaultValueComputed="${defaultValueComputed-Property}" position="1">
+        <createTable tableName="OP_PROPERTY">
+            <column name="ID" type="${idType-Property}" defaultValueComputed="${defaultValueComputed-Property}">
                 <constraints primaryKey="true" primaryKeyName="OP_PROPERTY_PKEY"/>
             </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2021-05-20-ObsProps_Property-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="NAME" tableName="OP_PROPERTY" />
+            </not>
+        </preConditions>
+
+        <addColumn tableName="OP_PROPERTY">
+            <column name="NAME" type="TEXT"/>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="METADATA" type="TEXT"/>
+            <column name="LINK" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
         </addColumn>
     </changeSet>
 

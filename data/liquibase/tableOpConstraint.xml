@@ -22,48 +22,48 @@
     -->
     <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="id-Constraint" value="LONG" />
             <not>
                 <tableExists tableName="OP_CONSTRAINT" />
             </not>
         </preConditions>
         <createTable tableName="OP_CONSTRAINT">
-            <column name="NAME" type="TEXT"/>
-            <column name="DESCRIPTION" type="TEXT"/>
-            <column name="METADATA" type="TEXT"/>
-            <column name="LINK" type="TEXT"/>
-            <column name="PROPERTIES" type="JSONB"/>
-            <column name="VAR_ID" type="${idType-ObsProp}" remarks="NavLink to Variable (ObservedProperty)"/>
+            <column name="ID" type="${idTypeLong}" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY" />
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <preConditions onFail="MARK_RAN">
-            <changeLogPropertyDefined property="id-Constraint" value="LONG" />
-            <not>
-                <columnExists columnName="ID" tableName="OP_CONSTRAINT" />
-            </not>
-        </preConditions>
-        <addColumn tableName="OP_CONSTRAINT">
-            <column name="ID" type="${idTypeLong}" autoIncrement="true" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-Constraint" value="STRING" />
                 <changeLogPropertyDefined property="id-Constraint" value="UUID" />
             </or>
             <not>
-                <columnExists columnName="ID" tableName="OP_CONSTRAINT" />
+                <tableExists tableName="OP_CONSTRAINT" />
+            </not>
+        </preConditions>
+        <createTable tableName="OP_CONSTRAINT">
+            <column name="ID" type="${idType-Constraint}" defaultValueComputed="${defaultValueComputed-Constraint}">
+                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="NAME" tableName="OP_CONSTRAINT" />
             </not>
         </preConditions>
         <addColumn tableName="OP_CONSTRAINT">
-            <column name="ID" type="${idType-Constraint}" defaultValueComputed="${defaultValueComputed-Constraint}" position="1">
-                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY"/>
-            </column>
+            <column name="NAME" type="TEXT"/>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="METADATA" type="TEXT"/>
+            <column name="LINK" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="VAR_ID" type="${idType-ObsProp}" remarks="NavLink to Variable (ObservedProperty)"/>
         </addColumn>
     </changeSet>
 
