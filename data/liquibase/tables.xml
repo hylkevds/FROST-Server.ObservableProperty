@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <!--
-     Copyright (C) 2016 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
+     Copyright (C) 2024 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
      Karlsruhe, Germany.
 
      This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,29 @@
      You should have received a copy of the GNU Lesser General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-    <include relativeToChangelogFile="true" file="tableOpConstraint.xml" />
-    <include relativeToChangelogFile="true" file="tableOpContectObject.xml" />
-    <include relativeToChangelogFile="true" file="tableOpMatrix.xml" />
-    <include relativeToChangelogFile="true" file="tableOpObjectOInterest.xml" />
-    <include relativeToChangelogFile="true" file="tableOpProperty.xml" />
-    <include relativeToChangelogFile="true" file="tablesLinking.xml" />
+
+    <property name="id-Constraint" value="LONG" />
+    <property name="idType-Constraint" value="BIGINT" />
+    <property name="id-ContextObject" value="LONG" />
+    <property name="idType-ContextObject" value="BIGINT" />
+    <property name="id-Matrix" value="LONG" />
+    <property name="idType-Matrix" value="BIGINT" />
+    <property name="id-ObjectOfInterest" value="LONG" />
+    <property name="idType-ObjectOfInterest" value="BIGINT" />
+    <property name="id-Property" value="LONG" />
+    <property name="idType-Property" value="BIGINT" />
+
+    <include relativeToChangelogFile="true" file="tableConstraints.xml" />
+    <include relativeToChangelogFile="true" file="tableContextObjects.xml" />
+    <include relativeToChangelogFile="true" file="tableLtCoConstraint.xml" />
+    <include relativeToChangelogFile="true" file="tableLtCoVar.xml" />
+    <include relativeToChangelogFile="true" file="tableMatrices.xml" />
+    <include relativeToChangelogFile="true" file="tableLtMatrixConstraint.xml" />
+    <include relativeToChangelogFile="true" file="tableObjectsOfInterest.xml" />
+    <include relativeToChangelogFile="true" file="tableLtOoiConstraint.xml" />
+    <include relativeToChangelogFile="true" file="tableProperties.xml" />
+    <include relativeToChangelogFile="true" file="tableLtPropertyOoi.xml" />
     <include relativeToChangelogFile="true" file="foreignKeys.xml" />
 
 </databaseChangeLog>
+

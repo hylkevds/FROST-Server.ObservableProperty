@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <!--
-     Copyright (C) 2016 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
+     Copyright (C) 2024 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
      Karlsruhe, Germany.
 
      This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,8 @@
      You should have received a copy of the GNU Lesser General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-    <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="scf" id="2025-02-15-OP_CONTEXT_OBJECT-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <changeLogPropertyDefined property="id-ContextObject" value="LONG" />
             <not>
@@ -29,12 +30,12 @@
         </preConditions>
         <createTable tableName="OP_CONTEXT_OBJECT">
             <column name="ID" type="${idTypeLong}" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY" />
+                <constraints primaryKey="true" primaryKeyName="pk_OP_CONTEXT_OBJECT" />
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_CONTEXT_OBJECT-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-ContextObject" value="STRING" />
@@ -46,12 +47,12 @@
         </preConditions>
         <createTable tableName="OP_CONTEXT_OBJECT">
             <column name="ID" type="${idType-ContextObject}" defaultValueComputed="${defaultValueComputed-ContextObject}">
-                <constraints primaryKey="true" primaryKeyName="OP_CONTEXT_OBJECT_PKEY"/>
+                <constraints primaryKey="true" primaryKeyName="pk_OP_CONTEXT_OBJECT"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_ContextObject-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_CONTEXT_OBJECT-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists columnName="NAME" tableName="OP_CONTEXT_OBJECT" />
@@ -67,3 +68,4 @@
     </changeSet>
 
 </databaseChangeLog>
+

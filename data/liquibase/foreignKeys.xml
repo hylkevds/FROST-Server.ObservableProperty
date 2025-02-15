@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <!--
-     Copyright (C) 2016 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
+     Copyright (C) 2024 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
      Karlsruhe, Germany.
 
      This program is free software: you can redistribute it and/or modify
@@ -20,97 +20,202 @@
      You should have received a copy of the GNU Lesser General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-    <changeSet author="scf" id="2021-05-20-observableProperties" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="scf" id="2025-02-15-fk_OP_CONSTRAINT_VAR_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="FKEY_CONSTRAINT_VAR_ID" />
+                <foreignKeyConstraintExists foreignKeyName="fk_OP_CONSTRAINT_VAR_ID" foreignKeyTableName="OP_CONSTRAINT" />
             </not>
         </preConditions>
-
         <addForeignKeyConstraint
-            constraintName="FKEY_CONSTRAINT_VAR_ID"
+            constraintName="fk_OP_CONSTRAINT_VAR_ID"
             baseTableName="OP_CONSTRAINT" baseColumnNames="VAR_ID"
             referencedTableName="OBS_PROPERTIES" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
-            onDelete="SET NULL" onUpdate="CASCADE"/>
-        <addForeignKeyConstraint
-            constraintName="FKEY_LT_PROPERTY_OOI_PROPERTY_ID"
-            baseTableName="LT_PROPERTY_OOI" baseColumnNames="PROPERTY_ID"
-            referencedTableName="OP_PROPERTY" referencedColumnNames="ID"
-            deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_CO_CONSTRAINT_CO_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_CO_CONSTRAINT_CO_ID" foreignKeyTableName="LT_CO_CONSTRAINT" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_PROPERTY_OOI_OOI_ID"
-            baseTableName="LT_PROPERTY_OOI" baseColumnNames="OOI_ID"
-            referencedTableName="OP_OOI" referencedColumnNames="ID"
-            deferrable="false" initiallyDeferred="false"
-            onDelete="CASCADE" onUpdate="CASCADE"/>
-        <addForeignKeyConstraint
-            constraintName="FKEY_LT_CO_VAR_CO_ID"
-            baseTableName="LT_CO_VAR" baseColumnNames="CO_ID"
-            referencedTableName="OP_CONTEXT_OBJECT" referencedColumnNames="ID"
-            deferrable="false" initiallyDeferred="false"
-            onDelete="CASCADE" onUpdate="CASCADE"/>
-        <addForeignKeyConstraint
-            constraintName="FKEY_LT_CO_VAR_VAR_ID"
-            baseTableName="LT_CO_VAR" baseColumnNames="VAR_ID"
-            referencedTableName="OBS_PROPERTIES" referencedColumnNames="ID"
-            deferrable="false" initiallyDeferred="false"
-            onDelete="CASCADE" onUpdate="CASCADE"/>
-        <addForeignKeyConstraint
-            constraintName="FKEY_LT_CO_CONSTRAINT_CO_ID"
+            constraintName="fk_LT_CO_CONSTRAINT_CO_ID"
             baseTableName="LT_CO_CONSTRAINT" baseColumnNames="CO_ID"
             referencedTableName="OP_CONTEXT_OBJECT" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_CO_CONSTRAINT_CONSTRAINT_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_CO_CONSTRAINT_CONSTRAINT_ID" foreignKeyTableName="LT_CO_CONSTRAINT" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_CO_CONSTRAINT_CONSTRAINT_ID"
+            constraintName="fk_LT_CO_CONSTRAINT_CONSTRAINT_ID"
             baseTableName="LT_CO_CONSTRAINT" baseColumnNames="CONSTRAINT_ID"
             referencedTableName="OP_CONSTRAINT" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_CO_VAR_CO_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_CO_VAR_CO_ID" foreignKeyTableName="LT_CO_VAR" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_MATRIX_CONSTRAINT_MATRIX_ID"
+            constraintName="fk_LT_CO_VAR_CO_ID"
+            baseTableName="LT_CO_VAR" baseColumnNames="CO_ID"
+            referencedTableName="OP_CONTEXT_OBJECT" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_CO_VAR_VAR_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_CO_VAR_VAR_ID" foreignKeyTableName="LT_CO_VAR" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            constraintName="fk_LT_CO_VAR_VAR_ID"
+            baseTableName="LT_CO_VAR" baseColumnNames="VAR_ID"
+            referencedTableName="OBS_PROPERTIES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_MATRIX_CONSTRAINT_MATRIX_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_MATRIX_CONSTRAINT_MATRIX_ID" foreignKeyTableName="LT_MATRIX_CONSTRAINT" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            constraintName="fk_LT_MATRIX_CONSTRAINT_MATRIX_ID"
             baseTableName="LT_MATRIX_CONSTRAINT" baseColumnNames="MATRIX_ID"
             referencedTableName="OP_MATRIX" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_MATRIX_CONSTRAINT_CONSTRAINT_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_MATRIX_CONSTRAINT_CONSTRAINT_ID" foreignKeyTableName="LT_MATRIX_CONSTRAINT" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_MATRIX_CONSTRAINT_CONSTRAINT_ID"
+            constraintName="fk_LT_MATRIX_CONSTRAINT_CONSTRAINT_ID"
             baseTableName="LT_MATRIX_CONSTRAINT" baseColumnNames="CONSTRAINT_ID"
             referencedTableName="OP_CONSTRAINT" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_OBS_PROPERTIES_MATRIX_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_OBS_PROPERTIES_MATRIX_ID" foreignKeyTableName="OBS_PROPERTIES" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_OOI_CONSTRAINT_OOI_ID"
+            constraintName="fk_OBS_PROPERTIES_MATRIX_ID"
+            baseTableName="OBS_PROPERTIES" baseColumnNames="MATRIX_ID"
+            referencedTableName="OP_MATRIX" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_OOI_CONSTRAINT_OOI_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_OOI_CONSTRAINT_OOI_ID" foreignKeyTableName="LT_OOI_CONSTRAINT" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            constraintName="fk_LT_OOI_CONSTRAINT_OOI_ID"
             baseTableName="LT_OOI_CONSTRAINT" baseColumnNames="OOI_ID"
             referencedTableName="OP_OOI" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_OOI_CONSTRAINT_CONSTRAINT_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_OOI_CONSTRAINT_CONSTRAINT_ID" foreignKeyTableName="LT_OOI_CONSTRAINT" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_LT_OOI_CONSTRAINT_CONSTRAINT_ID"
+            constraintName="fk_LT_OOI_CONSTRAINT_CONSTRAINT_ID"
             baseTableName="LT_OOI_CONSTRAINT" baseColumnNames="CONSTRAINT_ID"
             referencedTableName="OP_CONSTRAINT" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
             onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_OBS_PROPERTIES_OOI_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_OBS_PROPERTIES_OOI_ID" foreignKeyTableName="OBS_PROPERTIES" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_OBS_PROPERTIES_MATRIX_ID"
-            baseTableName="OBS_PROPERTIES" baseColumnNames="MATRIX_ID"
-            referencedTableName="OP_MATRIX" referencedColumnNames="ID"
-            deferrable="false" initiallyDeferred="false"
-            onDelete="SET NULL" onUpdate="CASCADE"/>
-        <addForeignKeyConstraint
-            constraintName="FKEY_OBS_PROPERTIES_OOI_ID"
+            constraintName="fk_OBS_PROPERTIES_OOI_ID"
             baseTableName="OBS_PROPERTIES" baseColumnNames="OOI_ID"
             referencedTableName="OP_OOI" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
-            onDelete="SET NULL" onUpdate="CASCADE"/>
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_PROPERTY_OOI_PROPERTY_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_PROPERTY_OOI_PROPERTY_ID" foreignKeyTableName="LT_PROPERTY_OOI" />
+            </not>
+        </preConditions>
         <addForeignKeyConstraint
-            constraintName="FKEY_OBS_PROPERTIES_PROPERTY_ID"
+            constraintName="fk_LT_PROPERTY_OOI_PROPERTY_ID"
+            baseTableName="LT_PROPERTY_OOI" baseColumnNames="PROPERTY_ID"
+            referencedTableName="OP_PROPERTY" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_LT_PROPERTY_OOI_OOI_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_LT_PROPERTY_OOI_OOI_ID" foreignKeyTableName="LT_PROPERTY_OOI" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            constraintName="fk_LT_PROPERTY_OOI_OOI_ID"
+            baseTableName="LT_PROPERTY_OOI" baseColumnNames="OOI_ID"
+            referencedTableName="OP_OOI" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-fk_OBS_PROPERTIES_PROPERTY_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_OBS_PROPERTIES_PROPERTY_ID" foreignKeyTableName="OBS_PROPERTIES" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+            constraintName="fk_OBS_PROPERTIES_PROPERTY_ID"
             baseTableName="OBS_PROPERTIES" baseColumnNames="PROPERTY_ID"
             referencedTableName="OP_PROPERTY" referencedColumnNames="ID"
             deferrable="false" initiallyDeferred="false"
-            onDelete="SET NULL" onUpdate="CASCADE"/>
+            onDelete="CASCADE" onUpdate="CASCADE"/>
     </changeSet>
 
 </databaseChangeLog>
+

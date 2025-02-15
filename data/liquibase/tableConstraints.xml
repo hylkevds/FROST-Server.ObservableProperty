@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <!--
-     Copyright (C) 2016 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
+     Copyright (C) 2024 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
      Karlsruhe, Germany.
 
      This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,8 @@
      You should have received a copy of the GNU Lesser General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="scf" id="2025-02-15-OP_CONSTRAINT-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <changeLogPropertyDefined property="id-Constraint" value="LONG" />
             <not>
@@ -29,12 +30,12 @@
         </preConditions>
         <createTable tableName="OP_CONSTRAINT">
             <column name="ID" type="${idTypeLong}" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY" />
+                <constraints primaryKey="true" primaryKeyName="pk_OP_CONSTRAINT" />
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_CONSTRAINT-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-Constraint" value="STRING" />
@@ -46,31 +47,33 @@
         </preConditions>
         <createTable tableName="OP_CONSTRAINT">
             <column name="ID" type="${idType-Constraint}" defaultValueComputed="${defaultValueComputed-Constraint}">
-                <constraints primaryKey="true" primaryKeyName="OP_CONSTRAINT_PKEY"/>
+                <constraints primaryKey="true" primaryKeyName="pk_OP_CONSTRAINT"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_CONSTRAINT-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists columnName="NAME" tableName="OP_CONSTRAINT" />
             </not>
         </preConditions>
         <addColumn tableName="OP_CONSTRAINT">
+            <column name="VAR_ID" type="${idType-ObservedProperty}">
+                <constraints nullable="false"/>
+            </column>
             <column name="NAME" type="TEXT"/>
             <column name="DESCRIPTION" type="TEXT"/>
             <column name="METADATA" type="TEXT"/>
             <column name="LINK" type="TEXT"/>
             <column name="PROPERTIES" type="JSONB"/>
-            <column name="VAR_ID" type="${idType-ObsProp}" remarks="NavLink to Variable (ObservedProperty)"/>
         </addColumn>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_Constraint-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_CONSTRAINT-idx-VAR_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <not>
-                <indexExists indexName="OP_CONSTRAINT_VAR_ID" />
+                <indexExists tableName="OP_CONSTRAINT" indexName="OP_CONSTRAINT_VAR_ID" />
             </not>
         </preConditions>
         <createIndex tableName="OP_CONSTRAINT" indexName="OP_CONSTRAINT_VAR_ID">
@@ -79,3 +82,4 @@
     </changeSet>
 
 </databaseChangeLog>
+

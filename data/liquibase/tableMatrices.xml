@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <!--
-     Copyright (C) 2016 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
+     Copyright (C) 2024 Fraunhofer Institut IOSB, Fraunhoferstr. 1, D 76131
      Karlsruhe, Germany.
 
      This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,8 @@
      You should have received a copy of the GNU Lesser General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -->
-    <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="scf" id="2025-02-15-OP_MATRIX-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <changeLogPropertyDefined property="id-Matrix" value="LONG" />
             <not>
@@ -29,12 +30,12 @@
         </preConditions>
         <createTable tableName="OP_MATRIX">
             <column name="ID" type="${idTypeLong}" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY" />
+                <constraints primaryKey="true" primaryKeyName="pk_OP_MATRIX" />
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_MATRIX-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <or>
                 <changeLogPropertyDefined property="id-Matrix" value="STRING" />
@@ -46,12 +47,12 @@
         </preConditions>
         <createTable tableName="OP_MATRIX">
             <column name="ID" type="${idType-Matrix}" defaultValueComputed="${defaultValueComputed-Matrix}">
-                <constraints primaryKey="true" primaryKeyName="OP_MATRIX_PKEY"/>
+                <constraints primaryKey="true" primaryKeyName="pk_OP_MATRIX"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2021-05-20-ObsProps_Matrix-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2025-02-15-OP_MATRIX-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists columnName="NAME" tableName="OP_MATRIX" />
@@ -66,4 +67,27 @@
         </addColumn>
     </changeSet>
 
+    <changeSet author="scf" id="2025-02-15-OBS_PROPERTIES-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="MATRIX_ID" tableName="OBS_PROPERTIES" />
+            </not>
+        </preConditions>
+        <addColumn tableName="OBS_PROPERTIES">
+            <column name="MATRIX_ID" type="${idType-Matrix}"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="scf" id="2025-02-15-OBS_PROPERTIES-idx-MATRIX_ID" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="OBS_PROPERTIES" indexName="OBS_PROPERTIES_MATRIX_ID" />
+            </not>
+        </preConditions>
+        <createIndex tableName="OBS_PROPERTIES" indexName="OBS_PROPERTIES_MATRIX_ID">
+            <column name="MATRIX_ID" />
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
+

@@ -1,94 +1,114 @@
 {
-    "entityTypes": [
+  "conformance": [],
+  "simplePropertyTypes": [],
+  "entityTypes": [
+    {
+      "name": "Constraint",
+      "plural": "Constraints",
+      "adminOnly": false,
+      "table": "OP_CONSTRAINT",
+      "orderByDflt": [],
+      "entityProperties": [
         {
-            "name": "Constraint",
-            "plural": "Constraints",
-            "table": "OP_CONSTRAINT",
-            "entityProperties": [
-                {
-                    "name": "@iot.id",
-                    "aliases": ["id"],
-                    "type": "Id",
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperId",
-                            "field": "ID"
-                        }
-                    ]
-                },
-                {
-                    "name": "name",
-                    "type": "Edm.String",
-                    "required": true,
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
-                            "field": "NAME"
-                        }
-                    ]
-                },
-                {
-                    "name": "description",
-                    "type": "Edm.String",
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
-                            "field": "DESCRIPTION"
-                        }
-                    ]
-                },
-                {
-                    "name": "metadata",
-                    "type": "Edm.String",
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
-                            "field": "METADATA"
-                        }
-                    ]
-                },
-                {
-                    "name": "link",
-                    "type": "Edm.String",
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
-                            "field": "LINK"
-                        }
-                    ]
-                },
-                {
-                    "name": "properties",
-                    "type": "Object",
-                    "hasCustomProperties": true,
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperJson",
-                            "field": "PROPERTIES"
-                        }
-                    ]
-                }
-            ],
-            "navigationProperties": [
-                {
-                    "name": "ObservedProperty",
-                    "required": true,
-                    "entitySet": false,
-                    "entityType": "ObservedProperty",
-                    "inverse": {
-                        "name": "Constraints",
-                        "entitySet": true
-                    },
-                    "handlers": [
-                        {
-                            "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
-                            "field": "VAR_ID",
-                            "otherTable": "OBS_PROPERTIES",
-                            "otherField": "ID"
-                        }
-                    ]
-                }
-            ]
+          "name": "@iot.id",
+          "aliases": [
+            "id"
+          ],
+          "type": "Id",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperId",
+              "field": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "name",
+          "type": "Edm.String",
+          "required": true,
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "NAME"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "description",
+          "type": "Edm.String",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "DESCRIPTION"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "metadata",
+          "type": "Edm.String",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "METADATA"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "link",
+          "type": "Edm.String",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "LINK"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "properties",
+          "type": "Object",
+          "hasCustomProperties": true,
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperJson",
+              "field": "PROPERTIES",
+              "isMap": true
+            }
+          ],
+          "annotations": []
         }
-    ]
+      ],
+      "navigationProperties": [
+        {
+          "name": "ObservedProperty",
+          "entitySet": false,
+          "entityType": "ObservedProperty",
+          "required": true,
+          "symmetrical": false,
+          "priority": 0,
+          "inverse": {
+            "name": "Constraints",
+            "entitySet": true,
+            "required": false,
+            "priority": 0,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "VAR_ID",
+              "otherTable": "OBS_PROPERTIES",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    }
+  ]
 }
